@@ -1,6 +1,6 @@
 # elastic-cluster-diff
 
-This is a tool to diff elasticsearch cluster.
+This is a tool to diff elasticsearch cluster. Right now it is only possible to detect different document counts in indices with the same name.
 
 ## Why
 
@@ -19,3 +19,25 @@ We do provide a docker image that contains all the stuff. Either pull from nexus
 ```bash
     $ ./bin/main
 ```
+
+
+## example
+
+```bash
+  $ ./bin/main compare --config --cluster my-fancy-cluster-1:9200 --cluster my-fancy-cluster-2:9200
+
+  Diff +my-fancy-cluster-1:9200 with -my-fancy-cluster-2:9200
+  diff.Changelog{
+      {
+          Type: "update",
+          Path: {"TotalDocuments"},
+          From: int(758),
+          To:   int(760),
+      },
+      {
+          Type: "update",
+          Path: {"Indices", "8", "DocCount"},
+          From: int(9),
+          To:   int(11),
+      },
+
