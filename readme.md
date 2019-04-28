@@ -27,17 +27,38 @@ We do provide a docker image that contains all the stuff. Either pull from nexus
   $ ./bin/main compare --config --cluster my-fancy-cluster-1:9200 --cluster my-fancy-cluster-2:9200
 
   Diff +my-fancy-cluster-1:9200 with -my-fancy-cluster-2:9200
-  diff.Changelog{
-      {
-          Type: "update",
-          Path: {"TotalDocuments"},
-          From: int(758),
-          To:   int(760),
-      },
-      {
-          Type: "update",
-          Path: {"Indices", "8", "DocCount"},
-          From: int(9),
-          To:   int(11),
-      },
+    diff.Changelog{
+    {
+        Type: "update",
+        Path: {"TotalDocuments"},
+        From: int(758),
+        To:   int(760),
+    },
+    {
+        Type: "delete",
+        Path: {"Indices", "1", "Name"},
+        From: ".kibana_1",
+        To:   nil,
+    },
+    {
+        Type: "delete",
+        Path: {"Indices", "1", "DocCount"},
+        From: int(9),
+        To:   nil,
+    },
+    {
+        Type: "create",
+        Path: {"Indices", "8", "Name"},
+        From: nil,
+        To:   ".kibana_1",
+    },
+    {
+        Type: "create",
+        Path: {"Indices", "8", "DocCount"},
+        From: nil,
+        To:   int(11),
+    },
+    (...)
+```
 
+LLAP.
