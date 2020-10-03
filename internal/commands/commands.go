@@ -6,7 +6,7 @@ import (
 
 	"github.com/la3mmchen/elastic-cluster-diff/internal/types"
 	"github.com/r3labs/diff"
-	pretty "github.com/tonnerre/golang-pretty"
+	pretty "github.com/kr/pretty"
 	"github.com/urfave/cli"
 
 	"github.com/olivere/elastic"

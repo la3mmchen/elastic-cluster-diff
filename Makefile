@@ -1,6 +1,7 @@
 #!make
 include properties.env
 export $(shell sed 's/=.*//' properties.env)
+PROJECT_NAME := $(shell basename "$$PWD")
 
 .DEFAULT_GOAL := default
 
@@ -8,13 +9,8 @@ test:
 	env
 
 .PHONY: default
-default: dependencies build run
+default: build run
 
-.PHONY: dependencies
-dependencies:
-	govendor list
-	govendor add +external
-	#govendor fetch +external
 
 .PHONY: build
 build: 
@@ -24,13 +20,6 @@ build:
 docker: 
 	docker build -t ${PROJECT}/${PROJECT_NAME}:${VERSION} .
 	docker tag ${PROJECT}/${PROJECT_NAME}:${VERSION} ${PROJECT}/${PROJECT_NAME}:latest
-
-.PHONY: dockerhub
-dockerhub: 
-	docker build -t ${PROJECT}/${PROJECT_NAME}:${VERSION} .
-	docker tag ${PROJECT}/${PROJECT_NAME}:${VERSION} ${PROJECT}/${PROJECT_NAME}:latest
-	docker push la3mmchen/elastic-cluster-diff:${VERSION}
-	docker push la3mmchen/elastic-cluster-diff:latest
 
 run:
 	@echo "\n"
